@@ -82,6 +82,7 @@ def fetch_shoe_contracts(season=None):
          'pistons','warriors','rockets','pacers','clippers','heat','bucks','timberwolves','pelicans',
          'knicks','thunder','magic','sixers','suns','blazer','kings','spurs','raptors','jazz']
     logger.info('Downloading shoe contract data...')
+    #Do the Pacers separately since there is a problem with the html.
     page = requests.get('http://nbashoesdb.com/en/team/pacers')
     tree=html.fromstring(page.content)
     e = tree.xpath('/html/body/div[2]/section/div[5]/div/div[2]/div/table/tbody/tr/td[2]/a/text()')
@@ -105,6 +106,7 @@ def fetch_shoe_contracts(season=None):
             'season':season.raw
             }
     teams.remove('pacers')
+    #Complete the rest of the teams. 
     teamcontract = {}
     for i in range(0,len(teams)):
         site = 'http://nbashoesdb.com/en/team/%s' % teams[i]
